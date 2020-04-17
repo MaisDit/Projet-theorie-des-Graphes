@@ -6,9 +6,12 @@ public class Graph {
 	private int nbArc;
 	private ArrayList<Integer> Sommet_Init = new ArrayList<Integer>();
 	private ArrayList <Integer>Sommet_Term = new ArrayList<Integer>();
-	private ArrayList Arc= new ArrayList();
+	private ArrayList<Integer> Arc= new ArrayList<Integer>();
+	
 	private ArrayList<ArrayList<Boolean>> MatriceAdja = new ArrayList<ArrayList<Boolean>>();
 	private ArrayList<ArrayList<String>> MatriceVal = new ArrayList<ArrayList<String>>();
+	
+	private ArrayList<ArrayList<Integer>> MatriceTest = new ArrayList<ArrayList<Integer>>();
 	
 	public Graph() {
 		File file = new File("D:/Desktop/Projet Théorie des Graphes/Fichier txt/exemple.txt");
@@ -108,6 +111,38 @@ public class Graph {
 			System.out.print(j + " ");
 			for(int k = 0;k < this.nbSommet;k++) {
 				System.out.print(this.MatriceVal.get(j).get(k)+" ");
+			}
+		}
+	}
+	public void DetectionCircuit() {
+		for (int i = 0; i < this.nbSommet; i++) {
+			this.MatriceTest.add(new ArrayList<Integer>());
+			for (int j = 0; j < this.nbSommet; j++) {
+				this.MatriceTest.get(i).add(0);
+			}
+		}
+		for(int i=0;i<this.nbSommet;++i) {
+			for(int j=0;j<this.nbSommet;j++) {
+				for(int k=0;k<nbArc;k++) {
+					if(this.Sommet_Init.get(k)==i && this.Sommet_Term.get(k)==j) {
+						this.MatriceTest.get(i).set(j,1);
+					}
+				}
+			}
+		}
+	}
+	public void DisplayTest() {
+		System.out.println("Matrice Valeur:");
+		System.out.println();
+		System.out.print("  ");
+		for(int i =0; i<this.nbSommet;i++) {
+			System.out.print(i+" ");
+		}
+		for(int j = 0;j<this.nbSommet;j++) {
+			System.out.println();
+			System.out.print(j + " ");
+			for(int k = 0;k < this.nbSommet;k++) {
+				System.out.print(this.MatriceTest.get(j).get(k)+" ");
 			}
 		}
 	}
