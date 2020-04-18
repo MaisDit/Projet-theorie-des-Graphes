@@ -4,17 +4,22 @@ import java.util.*;
 public class Graph { 
 	private int nbSommet;
 	private int nbArc;
+	
 	private ArrayList<Integer> Sommet_Init = new ArrayList<Integer>();
 	private ArrayList <Integer>Sommet_Term = new ArrayList<Integer>();
 	private ArrayList<Integer> Arc= new ArrayList<Integer>();
 	
 	private ArrayList<ArrayList<Boolean>> MatriceAdja = new ArrayList<ArrayList<Boolean>>();
+	
 	private ArrayList<ArrayList<String>> MatriceVal = new ArrayList<ArrayList<String>>();
 	
-	private ArrayList<ArrayList<Integer>> MatriceTest = new ArrayList<ArrayList<Integer>>();
+	public ArrayList<ArrayList<Boolean>> getMatriceAdja() {
+		return MatriceAdja;
+	}
+	
 	
 	public Graph() {
-		File file = new File("D:/Desktop/Projet Théorie des Graphes/Fichier txt/exemple.txt");
+		File file = new File("D:/Desktop/Projet Théorie des Graphes/Fichier txt/graphe_1.txt");
 		try {
 			Scanner scan = new Scanner(file);
 			this.nbSommet=scan.nextInt();
@@ -24,11 +29,14 @@ public class Graph {
 				Sommet_Term.add(scan.nextInt());
 				Arc.add(scan.nextInt());
 			}
-			
+			scan.close();
 		}catch(FileNotFoundException e) {
 			System.out.println("Erreur : Le fichier introuvable");
 		}
 	
+	}
+	public int getNbSommet() {
+		return nbSommet;
 	}
 	public void Display() {
 		System.out.println(this.nbSommet + " sommets");
@@ -114,37 +122,7 @@ public class Graph {
 			}
 		}
 	}
-	public void DetectionCircuit() {
-		for (int i = 0; i < this.nbSommet; i++) {
-			this.MatriceTest.add(new ArrayList<Integer>());
-			for (int j = 0; j < this.nbSommet; j++) {
-				this.MatriceTest.get(i).add(0);
-			}
-		}
-		for(int i=0;i<this.nbSommet;++i) {
-			for(int j=0;j<this.nbSommet;j++) {
-				for(int k=0;k<nbArc;k++) {
-					if(this.Sommet_Init.get(k)==i && this.Sommet_Term.get(k)==j) {
-						this.MatriceTest.get(i).set(j,1);
-					}
-				}
-			}
-		}
-	}
-	public void DisplayTest() {
-		System.out.println("Matrice Valeur:");
-		System.out.println();
-		System.out.print("  ");
-		for(int i =0; i<this.nbSommet;i++) {
-			System.out.print(i+" ");
-		}
-		for(int j = 0;j<this.nbSommet;j++) {
-			System.out.println();
-			System.out.print(j + " ");
-			for(int k = 0;k < this.nbSommet;k++) {
-				System.out.print(this.MatriceTest.get(j).get(k)+" ");
-			}
-		}
-	}
 	
+		
 }
+	
